@@ -1,0 +1,21 @@
+.navbar-container {
+    background-color: rgb(76, 97, 235);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20vh;
+}
+
+.navbar-logo {
+    margin-top: 10px;
+    height: 150px;
+}
+
+.navbar-buttons {
+    margin-right: 50px;
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+
+}
+
