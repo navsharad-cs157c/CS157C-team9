@@ -1,9 +1,9 @@
 import Navbar from '../../components/navbar/Navbar';
-const Home = () => {
+const Home = ({signIn, signUp, setisAuthenticated}) => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar signIn={signIn} signUp={signUp} setisAuthenticated={setisAuthenticated}/>
             <h1>Home page still a work in progress :) </h1>
         </div>
     )

@@ -12,7 +12,10 @@
 }
 
 .navbar-buttons {
-    margin-right: 50px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    
     width: 300px;
     display: flex;
     justify-content: space-around;
