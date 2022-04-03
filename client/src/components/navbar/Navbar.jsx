@@ -5,7 +5,7 @@ import './navbar.css';
 import Signinmodal from '../../components/modals/signin/Signinmodal';
 import Signupmodal from '../../components/modals/signup/Signupmodal';
 
-const Navbar = ({signIn, signUp, setisAuthenticated}) => {
+const Navbar = ({signIn, signUp, setisAuthenticated, isAuthenticated}) => {
     const [displaySigninModal, setdisplaySigninModal] = useState(false);
     const [displaySignupModal, setdisplaySignupModal] = useState(false);
 
@@ -23,12 +23,11 @@ const Navbar = ({signIn, signUp, setisAuthenticated}) => {
                 <img className="navbar-logo" src={logo} alt="" />
             </div>
             <div className="navbar-buttons">
-                <Button className="navbar-login" variant="contained" size="large"
-                onClick={toggleSignInModal}
-                >Log In</Button>
-                <Button className="navbar-signup" variant="contained" size="large"
-                onClick={toggleSignUpModal}
-                >Sign Up</Button>
+                {isAuthenticated && <Button className="navbar-login" variant="contained" size="large" href="/profile">User Profile</Button>}
+                {isAuthenticated && <Button  style={{backgroundColor: 'red', color: 'white'}} className="navbar-login" variant="contained" size="large" onClick={() => setisAuthenticated(false)}>Log Out</Button>}
+                {!isAuthenticated && <Button className="navbar-login" variant="contained" size="large" onClick={toggleSignInModal}>Log In</Button>}
+                {!isAuthenticated && <Button className="navbar-signup" variant="contained" size="large" onClick={toggleSignUpModal}>Sign Up</Button>}
+                
             </div>
         {displaySigninModal && <Signinmodal toggleSignInModal={toggleSignInModal} signIn={signIn} setisAuthenticated={setisAuthenticated}/>}
         {displaySignupModal && <Signupmodal toggleSignUpModal={toggleSignUpModal} signUp={signUp} setisAuthenticated={setisAuthenticated}/>}

@@ -8,7 +8,7 @@ const util = require('util');
 
 // create redis client
 const client = redis.createClient({
-    url: 'ask for uri'
+    url: 'ask me for uri. Remove it before comitting code to git'
 });
 
 // client.set = util.promisify(client.set)
@@ -34,9 +34,9 @@ app.use(express.json());
 // use cors to avoid issues when accessing api
 app.use(cors());
 
-app.get('/user/signin', function(req, res, next) {
-    res.json({"status": "200"});
-});
+// app.get('/user/signin', function(req, res, next) {
+//     res.json({"status": "200"});
+// });
 
 app.post('/user/signin', async function(req, res, next) {
     let email = req.body.email;
@@ -73,7 +73,7 @@ app.post('/user/signup', async function(req, res, next) {
         client.hSet(key, "email", email);
         client.hSet(key, "name", name);
         client.hSet(key, "password", password);
-        res.json({"status": "200"});
+        res.json({"status": "404"}); // <~~~~~~~~~~~~~~~~~check this piece of code
     } else { // if user exists return error code
         res.json({"status": "404"});
     }
@@ -84,18 +84,5 @@ app.listen(port, function() {
     console.log(`Server started on port ${port}`);
 });
 
-// (async () => {
-//     const client = redis.createClient({
-//         url: ''
-//     });
-  
-//     client.on('error', (err) => console.log('Redis Client Error', err));
-  
-//     await client.connect();
-  
-//     await client.set('key', 'value');
-//     const value = await client.get('key');
-//     console.log(value);
-//   })();
 
 

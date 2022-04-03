@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Error from './pages/Error/Error';
+import Profile from './pages/Profile/Profile';
 import { useState } from 'react';
 import axios from 'axios';
+import './App.css';
 
 const App = () => {
-  const [isAuthenticated, setisAuthenticated] = useState(false);
+  const [isAuthenticated, setisAuthenticated] = useState(true);
 
   let signIn = async (email, password) => {
     try {
@@ -18,14 +20,6 @@ const App = () => {
       console.log(err);
       return false;
     }
-    // axios.get("http://localhost:5000/user/signin").then(response => {
-    //   if (response.data.status == 200) {
-    //     console.log("done fetch")
-    //     return true;
-    //   }
-    //   console.log("bad fetch")
-    //   return false;
-    // });
   }
 
   let signUp = async (email, name, password) => {
@@ -43,7 +37,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Home signIn={signIn} signUp={signUp} setisAuthenticated={setisAuthenticated}/>} />
+      <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
+      <Route path="/profile" element={<Profile isAuthenticated={isAuthenticated}/>} />
       <Route path="*" element={<Error />} />
       </Routes>
     </Router>
