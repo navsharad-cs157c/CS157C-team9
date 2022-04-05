@@ -5,10 +5,13 @@ const methodOverride = require('method-override');
 const redis = require('redis');
 const cors = require('cors');
 const util = require('util');
+const { REDIS_URL } = require('./config');
 
 // create redis client
+//Add Config.js file at the same direcotry level as this file.
+//It contains : exports.REDIS_URL = <Redis_URL>;
 const client = redis.createClient({
-    url: ''
+    url: REDIS_URL
 });
 
 // client.set = util.promisify(client.set)
@@ -18,6 +21,11 @@ client.on('connect', function() {
 });
 
 // connect to redis
+process.on('uncaughtException', function (error) {    
+    console.log(error.stack);
+    console.log("Node NOT Exiting...");
+});
+
 client.connect();
 
 // set port
@@ -88,10 +96,35 @@ app.get('/user/info/:id', async function(req, res, next) {
     let userInfo = await client.hGetAll(key);
     res.send(userInfo);
 });
+// app.get('/getProducts', async (req, res) => {
+//     const products = await client.keys("product:*");
+//     let prodlist = []
+    
+//     await products.forEach(async product => {
+//         let returnProd = await client.hGetAll(product);
+//         prodlist.push(returnProd);
+//     });
+//     res.send(prodlist);
+// });
+
+
+
+app.get('/getProducts', async (req, res) => {
+    const products = await client.keys("product:*");
+    let prodlist = []
+    
+    // await products.forEach(async product => {
+    //     let returnProd = await client.hGetAll(product);
+    //     prodlist.push(returnProd);
+    // });
+    Promise.all(products.map(product => client.hGetAll(product))).then(values => {
+        res.send(values);
+    });
+    // res.send(prodlist);
+    
+});
 
 app.listen(port, function() {
     console.log(`Server started on port ${port}`);
 });
-
-
 

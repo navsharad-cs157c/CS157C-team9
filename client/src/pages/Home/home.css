@@ -47,10 +47,10 @@ section {
     margin-top: 2%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     height: 100vh;
+    margin-left: 5%;
 }
 
 .home-listings-header {
     color: rgb(29, 58, 156);
     font-size: 2.5rem;
-    margin-left: 50px;
 }
