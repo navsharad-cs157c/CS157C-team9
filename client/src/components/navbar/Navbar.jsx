@@ -4,6 +4,7 @@ import logo from '../../assets/logo1.png';
 import './navbar.css';
 import Signinmodal from '../../components/modals/signin/Signinmodal';
 import Signupmodal from '../../components/modals/signup/Signupmodal';
+import { Link } from "react-router-dom";
 
 const Navbar = ({signIn, signUp, setisAuthenticated, isAuthenticated}) => {
     const [displaySigninModal, setdisplaySigninModal] = useState(false);
@@ -19,12 +20,10 @@ const Navbar = ({signIn, signUp, setisAuthenticated, isAuthenticated}) => {
 
     return (
         <div className="navbar-container">
-            <div className="navbar-logo-container">
-                <img className="navbar-logo" src={logo} alt="" />
-            </div>
+            <Link to="/"><img className="navbar-logo" src={logo} alt="" /></Link>
             <div className="navbar-buttons">
-                {isAuthenticated && <Button className="navbar-login" variant="contained" size="large" href="/profile">User Profile</Button>}
-                {isAuthenticated && <Button  style={{backgroundColor: 'red', color: 'white'}} className="navbar-login" variant="contained" size="large" onClick={() => setisAuthenticated(false)}>Log Out</Button>}
+                {isAuthenticated && <Link style={{textDecoration: 'none'}} to="/profile"><Button variant="contained" size="large">User Profile</Button></Link>}
+                {isAuthenticated && <Button  style={{backgroundColor: 'red', color: 'white'}} variant="contained" size="large" onClick={() => setisAuthenticated(false)}>Log Out</Button>}
                 {!isAuthenticated && <Button className="navbar-login" variant="contained" size="large" onClick={toggleSignInModal}>Log In</Button>}
                 {!isAuthenticated && <Button className="navbar-signup" variant="contained" size="large" onClick={toggleSignUpModal}>Sign Up</Button>}
                 

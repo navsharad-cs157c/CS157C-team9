@@ -8,7 +8,7 @@ const util = require('util');
 
 // create redis client
 const client = redis.createClient({
-    url: 'ask me for uri. Remove it before comitting code to git'
+    url: ''
 });
 
 // client.set = util.promisify(client.set)
@@ -65,6 +65,7 @@ app.post('/user/signup', async function(req, res, next) {
     let email = req.body.email;
     let name = req.body.name;
     let password = req.body.password;
+    let picture = req.body.picture;
     let key = `user:${email}`;
 
     // check if user already exists
@@ -72,12 +73,20 @@ app.post('/user/signup', async function(req, res, next) {
     if (Object.keys(username).length === 0) { // if user does not exist create it
         client.hSet(key, "email", email);
         client.hSet(key, "name", name);
-        client.hSet(key, "password", password);
-        res.json({"status": "404"}); // <~~~~~~~~~~~~~~~~~check this piece of code
+        client.hSet(key, "picture", picture);
+        client.hSet(key, "password", password); // storing a password in the db without salt/hash is bad, we will fix this later
+        res.json({"status": "200"});
     } else { // if user exists return error code
         res.json({"status": "404"});
     }
 
+});
+
+// return user details to client
+app.get('/user/info/:id', async function(req, res, next) {
+    let key = `user:${req.params.id}`;
+    let userInfo = await client.hGetAll(key);
+    res.send(userInfo);
 });
 
 app.listen(port, function() {

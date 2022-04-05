@@ -3,18 +3,19 @@ import exit from '../../../assets/exit.png';
 import './signupmodal.css';
 import { Navigate } from "react-router-dom";
 
-const Signupmodal = ({toggleSignUpModal, signUp}) => {
+const Signupmodal = ({toggleSignUpModal, signUp, setisAuthenticated}) => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [isWrongInfo, setIsWrongInfo] = useState(false);
 
     const signUpCheck = async () => {
-        let authentication = await signUp(email, name, password);
+        let picture = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'; // default user profile picture
+        let authentication = await signUp(email, name, password, picture);
             if (authentication) {
                 setIsWrongInfo(false);
                 toggleSignUpModal();
-                return <Navigate to='/user/profile' />
+                setisAuthenticated(true);
             } else {
                 // display that username passowrd combo is wrong
                 setIsWrongInfo(true);

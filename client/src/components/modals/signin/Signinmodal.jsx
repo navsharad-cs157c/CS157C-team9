@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import exit from '../../../assets/exit.png';
 import './signinmodal.css';
 import { Navigate } from "react-router-dom";
 
-const Signinmodal = ({toggleSignInModal, signIn, setIsAuthenticated}) => {
+const Signinmodal = ({toggleSignInModal, signIn, setisAuthenticated}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isWrongInfo, setIsWrongInfo] = useState(false);
@@ -13,7 +13,9 @@ const Signinmodal = ({toggleSignInModal, signIn, setIsAuthenticated}) => {
             if (authentication) {
                 setIsWrongInfo(false);
                 toggleSignInModal();
-                return <Navigate to='/user/profile' />
+                setisAuthenticated(true);
+                console.log('authenticated');
+                // return <Navigate to='/user/profile' />
             } else {
                 // display that username passowrd combo is wrong
                 console.log('nah')

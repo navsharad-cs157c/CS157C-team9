@@ -1,17 +1,22 @@
 .navbar-container {
     background-color: rgb(29, 58, 156);
     display: flex;
+    overflow: hidden;
     justify-content: space-between;
     align-items: center;
     height: 20vh;
     -webkit-box-shadow: 0 8px 6px -6px black;
     -moz-box-shadow: 0 8px 6px -6px black;
          box-shadow: 0 8px 6px -6px rgb(69, 69, 69);
+
 }
 
 .navbar-logo {
-    margin-top: 10px;
-    height: 200px;
+    height: 325px;
+}
+
+.navbar-profile Button{
+    text-decoration: none;
 }
 
 .navbar-buttons {
