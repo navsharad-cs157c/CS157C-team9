@@ -1,0 +1,62 @@
+/* How do I center this?? */
+.info {
+    font-size: 25px;
+    display:block;
+    
+    margin:10px 10px 0 0;
+    padding:5px 10px
+}
+
+.posting-container {
+    display: block;
+}
+.posting-input-container {
+    padding: 16px;
+    margin: 10px;
+    width: 100%;
+    display: block;
+}
+
+label {
+    font-size: 20px;
+}
+
+input[type=text] {
+    width: 80%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: block;
+    border: none;
+    background: #f1f1f1;
+} 
+
+input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.description{
+    height: 300px;
+}
+
+.price {
+    width: 15% !important;
+}
+
+.btn1 {
+	color:#fff;
+	background-color:dodgerblue;
+	outline: 4px;
+    border: 0;
+	padding:10px 20px;
+	text-transform:uppercase;
+	margin-bottom:50px;
+    margin-left: 26px;
+	border-radius:2px;
+	cursor:pointer;
+	position:relative;
+}
+
+.btn:hover {
+    background: darkblue;
+}

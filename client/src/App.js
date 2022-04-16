@@ -5,6 +5,7 @@ import Profile from './pages/Profile/Profile';
 import { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import Posting from './pages/Posting/Posting';
 
 const App = () => {
   const [isAuthenticated, setisAuthenticated] = useState(false);
@@ -48,10 +49,26 @@ const App = () => {
     }
   }
 
+  let setProduct = async (title, description, price, image) => {
+    try {
+      const response = await axios.post("http://localhost:5000/posting/setProduct", {title: title, description: description, price: price, image: image, userEmail: userEmail});
+      if(response.data.status == 200) {
+        console.log("good post status");
+        return true;
+      }
+    }
+    catch (err) {
+      console.log("throwing error");
+      console.log(err);
+      return false;
+    }
+  }
+
   return (
     <Router>
       <Routes>
       <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
+      <Route path="/post" element={<Posting setProduct={setProduct}/>} />
       <Route path="/profile" element={<Profile signIn={signIn} signUp={signUp} 
         isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo}/>} />
       <Route path="*" element={<Error />} />

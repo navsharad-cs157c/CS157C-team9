@@ -51,7 +51,6 @@ app.post('/user/signin', async function(req, res, next) {
     let password = req.body.password;
     let key = `user:${email}`;
     console.log(key);
-    console.log('in post method');
 
     // check if email and password combination exist
     const username = await client.hGetAll(key);
@@ -107,7 +106,23 @@ app.get('/user/info/:id', async function(req, res, next) {
 //     res.send(prodlist);
 // });
 
-
+app.post('/posting/setProduct', async function(req, res) {
+    let title = req.body.title;
+    let description = req.body.description;
+    let price = req.body.price;
+    let image = req.body.image;
+    let time = client.TIME;
+    let poster_email = req.body.userEmail;
+    let key = "product:" + title; // SET A NEW KEY FOR EACH PRODUCT
+    // Add the product info under the key
+    client.hSet(key, "title", title);
+    client.hSet(key, "description", description);
+    client.hSet(key, "price", price);
+    client.hSet(key, "image", image);
+    client.hSet(key, "time_posted", time);
+    client.hSet(key, "poster_email", poster_email);
+    res.json({"status": "200"});
+});
 
 app.get('/getProducts', async (req, res) => {
     const products = await client.keys("product:*");
