@@ -40,7 +40,7 @@ const Signupmodal = ({toggleSignUpModal, signUp, setisAuthenticated}) => {
                     <input type="password" required="" value={password} onChange={(e) => setPassword(e.target.value)}/>
 		            <label>Password</label>	
                 </div>
-                <button type="button" className="btn" onClick={signUpCheck}>Sign Up</button>
+                <button type="button" className="signup-btn" onClick={signUpCheck}>Sign Up</button>
             </form>
             {isWrongInfo && <p style={{color:"red"}}>This email is already in use.</p>}
             <img src={exit} alt="" className="signupmodal-exit-btn" onClick={toggleSignUpModal}/>

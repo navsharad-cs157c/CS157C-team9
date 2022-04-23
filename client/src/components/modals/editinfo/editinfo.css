@@ -56,7 +56,7 @@
  outline:none;
  border-bottom:2px solid dodgerblue;	
 }
-.btn{
+.editinfo-btn{
 	color:#fff;
 	background-color:dodgerblue;
 	outline: none;
@@ -69,7 +69,7 @@
 	cursor:pointer;
 	position:relative;
 }
-.btn:hover {
+.editinfo-btn:hover {
     background: darkblue;
 }
 .editinfo-input-container input:focus ~ label,

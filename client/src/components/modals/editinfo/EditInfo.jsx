@@ -2,13 +2,17 @@ import React, {useState, useEffect} from 'react';
 import exit from '../../../assets/exit.png';
 import './editinfo.css';
 
-const EditInfo = ({toggleEditInfoModal}) => {
+const EditInfo = ({toggleEditInfoModal, setUserInfoUpdate, userInfoUpdate, updateUserInfo}) => {
     const [name, setName] = useState("");
     const [picture, setPicture] = useState("");
     const [bio, setBio] = useState("");
 
-    const updateInfoCheck = () => {
-
+    const updateInfoCheck = async () => {
+        let confirmation = await updateUserInfo(name, picture, bio);
+        if (confirmation) {
+            toggleEditInfoModal();
+            setUserInfoUpdate(!userInfoUpdate);
+        }
     }
 
     return (  
@@ -28,7 +32,7 @@ const EditInfo = ({toggleEditInfoModal}) => {
                     <input type="text" name="bio" required="" value={bio} onChange={(e) => setBio(e.target.value)}/>
 		            <label>Bio</label>	
                 </div>
-                <button type="button" className="btn" onClick={updateInfoCheck}>Update</button>
+                <button type="button" className="editinfo-btn" onClick={updateInfoCheck}>Update</button>
             </form>
             <img src={exit} alt="" className="editinfo-exit-btn" onClick={toggleEditInfoModal}/>
         </div>

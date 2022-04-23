@@ -3,9 +3,9 @@ import Navbar from '../../components/navbar/Navbar';
 import EditInfo from '../../components/modals/editinfo/EditInfo';
 import './profile.css';
 import Button from '@material-ui/core/Button';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 
-const Signinmodal = ({signIn, signUp, setisAuthenticated, isAuthenticated, fetchUserInfo}) => {
+const Signinmodal = ({signIn, signUp, setisAuthenticated, isAuthenticated, fetchUserInfo, setUserInfoUpdate, userInfoUpdate, updateUserInfo}) => {
     const [userInfo, setUserInfo] = useState({name: 'default', picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png", bio: 'Add a bio by clicking edit info!'});
     const [displayEditInfoModal, setDisplayEditInfoModal] = useState(false);
 
@@ -19,7 +19,7 @@ const Signinmodal = ({signIn, signUp, setisAuthenticated, isAuthenticated, fetch
             setUserInfo(info);
         }
         
-    }, [isAuthenticated]);
+    }, [userInfoUpdate]);
 
     return (  
         <div>
@@ -36,11 +36,11 @@ const Signinmodal = ({signIn, signUp, setisAuthenticated, isAuthenticated, fetch
                 <div className="profile-listings-container">
                     <span className="profile-listings-header">
                         <h1>My Listings</h1>
-                        <Button style={{marginTop: "30px", marginLeft: "30px"}} variant="outlined">Add New Listing</Button>
+                        <Link style={{textDecoration: 'none'}} to="/post"><Button style={{marginTop: "30px", marginLeft: "30px"}} variant="outlined">Add New Listing</Button></Link>
                     </span>
                 </div>
             </div>
-            {displayEditInfoModal && <EditInfo toggleEditInfoModal={toggleEditInfoModal}/>}
+            {displayEditInfoModal && <EditInfo userInfoUpdate={userInfoUpdate} setUserInfoUpdate={setUserInfoUpdate} toggleEditInfoModal={toggleEditInfoModal} updateUserInfo={updateUserInfo}/>}
         </div>
 
 : <Navigate to="/" />}

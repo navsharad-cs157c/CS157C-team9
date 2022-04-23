@@ -56,7 +56,7 @@
  outline:none;
  border-bottom:2px solid dodgerblue;	
 }
-.btn{
+.signup-btn{
 	color:#fff;
 	background-color:dodgerblue;
 	outline: none;
@@ -69,7 +69,7 @@
 	cursor:pointer;
 	position:relative;
 }
-.btn:hover {
+.signup-btn:hover {
     background: darkblue;
 }
 .signupmodal-input-container input:focus ~ label,

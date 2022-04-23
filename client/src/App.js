@@ -10,6 +10,7 @@ import Posting from './pages/Posting/Posting';
 const App = () => {
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('un@gmail.com');
+  const [userInfoUpdate, setUserInfoUpdate] = useState(false);
 
   let signIn = async (email, password) => {
     try {
@@ -17,6 +18,7 @@ const App = () => {
       if (response.data.status == 200) {
         console.log('good status');
         setisAuthenticated(true);
+        setUserInfoUpdate(!userInfoUpdate);
         setUserEmail(email);
         return true;
       }
@@ -49,6 +51,21 @@ const App = () => {
     }
   }
 
+    // updates user info when they edit info in profile page
+    let updateUserInfo = async (name, picture, bio) => {
+      try {
+        const response = await axios.post(`http://localhost:5000/user/update/${userEmail}`, {name: name, picture: picture, bio: bio, userEmail: userEmail});
+        if (response.data.status == 200) {
+          console.log('good status');
+          setUserInfoUpdate(!userInfoUpdate);
+          return true;
+        }
+      } catch (err) {
+        console.log(err);
+        return false;
+      }
+    }
+
   let setProduct = async (title, description, price, image) => {
     try {
       const response = await axios.post("http://localhost:5000/posting/setProduct", {title: title, description: description, price: price, image: image, userEmail: userEmail});
@@ -70,7 +87,7 @@ const App = () => {
       <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
       <Route path="/post" element={<Posting setProduct={setProduct}/>} />
       <Route path="/profile" element={<Profile signIn={signIn} signUp={signUp} 
-        isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo}/>} />
+        isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo} updateUserInfo={updateUserInfo} userInfoUpdate={userInfoUpdate}/>} />
       <Route path="*" element={<Error />} />
       </Routes>
     </Router>

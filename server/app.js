@@ -68,6 +68,19 @@ app.post('/user/signin', async function(req, res, next) {
 
 });
 
+// updates user personal information
+app.post('/user/update/:id', async function(req,res,next) {
+    let name = req.body.name;
+    let picture = req.body.picture;
+    let bio = req.body.bio;
+    let key = `user:${req.params.id}`;
+
+    if (name) client.hSet(key, "name", name);
+    if (picture) client.hSet(key, "picture", picture);
+    if (bio) client.hSet(key, "bio", bio); 
+    res.json({"status": "200"});
+});
+
 app.post('/user/signup', async function(req, res, next) {
     let email = req.body.email;
     let name = req.body.name;

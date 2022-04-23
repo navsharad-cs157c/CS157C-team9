@@ -37,7 +37,7 @@ const Signinmodal = ({toggleSignInModal, signIn, setisAuthenticated}) => {
                     <input type="password" name="password" required="" value={password} onChange={(e) => setPassword(e.target.value)}/>
 		            <label>Password</label>	
                 </div>
-                <button type="button" className="btn" onClick={signInCheck}>Sign In</button>
+                <button type="button" className="signin-btn" onClick={signInCheck}>Sign In</button>
             </form>
             {isWrongInfo && <p style={{color:"red"}}>Username/password combination is wrong.</p>}
             <img src={exit} alt="" className="signinmodal-exit-btn" onClick={toggleSignInModal}/>

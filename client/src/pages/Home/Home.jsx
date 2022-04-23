@@ -7,6 +7,8 @@ import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import ProductCard from "../../components/Cards/ProductCard";
+import Listings from "../../components/listings/Listings";
+
 
 const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
   const [products, setProducts] = useState([]);
@@ -51,19 +53,7 @@ const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
       </div>
       <div className="home-listings">
         <h1 className="home-listings-header">Recent Listings</h1>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            {
-                products.map(product =>(
-                    <Grid key={product.product_id} style={{paddingLeft:'1%'}}>
-                        <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} />
-                    </Grid>
-                ))
-            }
-          </Grid>
+        <Listings />
       </div>
     </div>
   );

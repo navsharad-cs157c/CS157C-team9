@@ -56,7 +56,7 @@
  outline:none;
  border-bottom:2px solid dodgerblue;	
 }
-.btn{
+.signin-btn{
 	color:#fff;
 	background-color:dodgerblue;
 	outline: none;
@@ -69,7 +69,7 @@
 	cursor:pointer;
 	position:relative;
 }
-.btn:hover {
+.signin-btn:hover {
     background: darkblue;
 }
 .signinmodal-input-container input:focus ~ label,
