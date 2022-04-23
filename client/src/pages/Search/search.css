@@ -1,0 +1,23 @@
+
+.search-page-container {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #83a4d4;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #b6fbff, #b4b4b4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #b6fbff, #d3d4d3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.search-page-searchbar {
+    width: 60%;
+    margin: 50px;
+}
+
+.search-page-listings {
+    margin-top: 100px;
+    margin-left: 5%;
+    overflow: hidden;
+    overflow-y: scroll;
+}

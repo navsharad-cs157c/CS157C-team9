@@ -2,7 +2,8 @@ import Navbar from "../../components/navbar/Navbar";
 import video from "../../assets/video.mp4";
 import "./home.css";
 import { useEffect, useState } from "react";
-import SearchBar from "material-ui-search-bar";
+//import SearchBar from "material-ui-search-bar";
+import SearchBar from "../../components/Search/SearchBar";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,6 +13,7 @@ import Listings from "../../components/listings/Listings";
 
 const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
   const [products, setProducts] = useState([]);
+  const [searchItem, setSearchItem] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,8 +47,8 @@ const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
           <div className="home-text">
             <br />
             <br /> <h1>What Are You Looking For?</h1>
-            <span>
-              <SearchBar className="home-searchbar" />
+            <span className="home-searchbar">
+              <SearchBar data={products}/>
             </span>
           </div>
         </section>
