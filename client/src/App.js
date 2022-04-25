@@ -6,6 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import Posting from './pages/Posting/Posting';
+import Search from './pages/Search/Search';
 
 const App = () => {
   const [isAuthenticated, setisAuthenticated] = useState(false);
@@ -89,6 +90,7 @@ const App = () => {
       <Route path="/profile" element={<Profile signIn={signIn} signUp={signUp} 
         isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo} updateUserInfo={updateUserInfo} userInfoUpdate={userInfoUpdate}/>} />
       <Route path="*" element={<Error />} />
+      <Route path="/search" element={<Search signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
       </Routes>
     </Router>
   )

@@ -28,12 +28,6 @@ section {
     margin-top: 20px;
 }
 
-.home-searchbar {
-    width: 60%;
-    margin: 50px;
-    z-index: -1;
-}
-
 .home-text h1 {
     text-transform: uppercase;
     font-size: 3.5rem;
