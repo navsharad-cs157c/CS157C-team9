@@ -1,5 +1,7 @@
 import './posting.css';
 import React, {useState, useEffect} from 'react';
+import {Link, useLocation} from "react-router-dom";
+import Button from '@material-ui/core/Button';
 
 const Posting = ({setProduct}) => {
     const [title, setTitle] = useState("");
@@ -11,8 +13,6 @@ const Posting = ({setProduct}) => {
     // When user clicks button, this method will be called which calls the method to tell the backend to input the info into the db
     // It then gets the result from that to know if it was successful or not
     const postingCheck = async () => {
-        let test = "product:" + title;
-        console.log(test);
         let result = await setProduct(title, description, price, image);
             if(result) {
                 console.log('successful');
@@ -34,6 +34,7 @@ const Posting = ({setProduct}) => {
                 <div className="posting-input-container">
                     <label>Product Description</label>	
                     <input type="text" className="description" name="description" required="" value={description} onChange={(e) => setDescription(e.target.value)}/>
+                    {/* <textarea className='description' name="description" required="" value={description} onChange={(e) => setDescription(e.target.value)} /> */}
                 </div>
 
                 <div className="posting-input-container">
@@ -44,7 +45,7 @@ const Posting = ({setProduct}) => {
                     <label>Image Link</label>
                     <input type="text" className="image" name="image" required="" value={image} onChange={(e) => setImage(e.target.value)}/>
                 </div>
-                <button type="button" className="btn1" onClick={postingCheck}>Post</button>
+                <Link style={{textDecoration: 'none'}} variant="outlined" to='/profile'> <Button style={{ backgroundColor: "dodgerblue", marginBottom: "30px", marginLeft: "30px"}} type="button" className="btn1" onClick={postingCheck}>Post</Button> </Link>
             </form>
         </div>
     );

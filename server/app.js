@@ -108,16 +108,30 @@ app.get('/user/info/:id', async function(req, res, next) {
     let userInfo = await client.hGetAll(key);
     res.send(userInfo);
 });
-// app.get('/getProducts', async (req, res) => {
-//     const products = await client.keys("product:*");
-//     let prodlist = []
+
+app.post('/post/editPost', async function(req, res, next) {
+    let key = req.body.key;
+    let title = req.body.title;
+    let description = req.body.description;
+    let price = req.body.price;
+    let image = req.body.image;
+    let poster_email = req.body.userEmail;
+
+    client.hSet(key, "title", title);
+    client.hSet(key, "description", description);
+    client.hSet(key, "price", price);
+    client.hSet(key, "image", image);
+
+    res.json({"status": "200"});
+});
+
+app.post('/post/deletePost', async function(req, res, next) {
+    let key = req.body.key;
     
-//     await products.forEach(async product => {
-//         let returnProd = await client.hGetAll(product);
-//         prodlist.push(returnProd);
-//     });
-//     res.send(prodlist);
-// });
+    client.del(key);
+
+    res.json({"status": "200"});
+});
 
 app.post('/posting/setProduct', async function(req, res) {
     let title = req.body.title;
@@ -126,13 +140,20 @@ app.post('/posting/setProduct', async function(req, res) {
     let image = req.body.image;
     let time = client.TIME;
     let poster_email = req.body.userEmail;
-    let key = "product:" + title; // SET A NEW KEY FOR EACH PRODUCT
+
+    let new_productID = await client.get("new_productID");
+    let key = "product:" + new_productID;
+
+    new_productID++;
+    client.set("new_productID", new_productID);
+
     // Add the product info under the key
+    client.hSet(key, "product_id", key);
     client.hSet(key, "title", title);
     client.hSet(key, "description", description);
     client.hSet(key, "price", price);
     client.hSet(key, "image", image);
-    client.hSet(key, "time_posted", time);
+    //client.hSet(key, "time_posted", time);
     client.hSet(key, "poster_email", poster_email);
     res.json({"status": "200"});
 });
@@ -150,6 +171,12 @@ app.get('/getProducts', async (req, res) => {
     });
     // res.send(prodlist);
     
+});
+
+app.get('/user/fetchProducts', async (req, res) => {
+    let products = await client.keys("product:*");
+    let userEmail = req.body.userEmail;
+    res.send("Hello there matey");
 });
 
 app.listen(port, function() {
