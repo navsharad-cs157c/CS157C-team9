@@ -1,0 +1,35 @@
+.profile-background {
+    min-height: 18vh;
+    width: 100vw;
+    background: rgb(134,244,206);
+    background: linear-gradient(124deg, rgba(134,244,206,1) 0%, rgb(244, 60, 60) 24%, rgb(253, 51, 243) 57%, rgb(1, 249, 146) 100%);   
+}
+
+.profile-user-details {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 60vh;
+    width: 100vw;
+    background: rgb(134,244,206);
+    background: linear-gradient(124deg, rgba(134,244,206,1) 0%, rgb(244, 60, 60) 24%, rgb(253, 51, 243) 57%, rgb(1, 249, 146) 100%);
+    text-align: center;
+}
+
+.profile-user-details img {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 50%;
+    height: 200px;
+}
+
+.profile-listings-container h1 {
+    color: rgb(29, 58, 156);
+    margin-left: 50px;
+    margin-top: 2%;
+}
+
+.profile-listings-header {
+    display: flex;
+}
