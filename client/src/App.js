@@ -7,6 +7,7 @@ import axios from 'axios';
 import './App.css';
 import Posting from './pages/Posting/Posting';
 import Search from './pages/Search/Search';
+import EditPost from './pages/EditPost/EditPost';
 
 const App = () => {
   const [isAuthenticated, setisAuthenticated] = useState(false);
@@ -82,13 +83,57 @@ const App = () => {
     }
   }
 
+  let fetchProducts = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/getProducts");
+      //console.log("Response",response.data);
+      return response;
+      //setProducts(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  let updatePost = async (title, description, price, image, key) => {
+    try {
+      const response = await axios.post("http://localhost:5000/post/editPost", {title: title, description: description, price: price, image: image, userEmail: userEmail, key: key});
+      if(response.data.status == 200) {
+        console.log("good post status");
+        return true;
+      }
+    }
+    catch (err) {
+      console.log("throwing error");
+      console.log(err);
+      return false;
+    }
+  }
+
+  let deletePost = async (key) => {
+    try {
+      const response = await axios.post("http://localhost:5000/post/deletePost", {key: key});
+      if(response.data.status == 200) {
+        console.log("good post status");
+        return true;
+      }
+    }
+    catch (err) {
+      console.log("throwing error");
+      console.log(err);
+      return false;
+    }
+  }
+  
+
   return (
     <Router>
       <Routes>
       <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
       <Route path="/post" element={<Posting setProduct={setProduct}/>} />
+      <Route path="/editpost" element={<EditPost updatePost={updatePost}/>} />
       <Route path="/profile" element={<Profile signIn={signIn} signUp={signUp} 
-        isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo} updateUserInfo={updateUserInfo} userInfoUpdate={userInfoUpdate}/>} />
+        isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo} updateUserInfo={updateUserInfo} userInfoUpdate={userInfoUpdate} 
+        fetchProducts={fetchProducts} userEmail={userEmail} deletePost={deletePost}/>} />
       <Route path="*" element={<Error />} />
       <Route path="/search" element={<Search signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
       </Routes>
