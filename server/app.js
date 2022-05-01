@@ -154,6 +154,7 @@ app.post('/posting/setProduct', async function(req, res) {
     client.hSet(key, "price", price);
     client.hSet(key, "image", image);
     //client.hSet(key, "time_posted", time);
+    client.hSet(key, "time_posted", (new Date()).toISOString());
     client.hSet(key, "poster_email", poster_email);
     res.json({"status": "200"});
 });

@@ -23,7 +23,9 @@ const FilteredListings = ({filteredProducts}) => {
             >
               {
                 filteredProducts ? 
-                  filteredProducts.map(product =>(
+                  filteredProducts.sort((b, a) => {
+                    return new Date(a.time_posted).getTime() - new Date(b.time_posted).getTime(); // descending date order
+                  }).map(product =>(
                       <Grid key={product.product_id} style={{paddingLeft:'1%'}}>
                           <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} />
                       </Grid>
