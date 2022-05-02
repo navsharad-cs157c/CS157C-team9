@@ -37,8 +37,8 @@ const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
     if (filterType === "price") {
       products.map((product) => {
         if (
-          parseInt(product.price) > parseInt(filter[0]) &&
-          parseInt(product.price) < parseInt(filter[1])
+          parseInt(product.price) >= parseInt(filter[0]) &&
+          parseInt(product.price) <= parseInt(filter[1])
         ) {
           currentFilteredProducts.push(product);
         }
