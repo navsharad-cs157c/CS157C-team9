@@ -11,7 +11,7 @@ import ProductCard from "../../components/Cards/ProductCard";
 import Listings from "../../components/listings/Listings";
 
 
-const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
+const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith, returnChatId }) => {
   const [products, setProducts] = useState([]);
   const [searchItem, setSearchItem] = useState("");
 
@@ -55,7 +55,7 @@ const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
       </div>
       <div className="home-listings">
         <h1 className="home-listings-header">Recent Listings</h1>
-        <Listings />
+        <Listings setChatWith={setChatWith} returnChatId={returnChatId}/>
       </div>
     </div>
   );

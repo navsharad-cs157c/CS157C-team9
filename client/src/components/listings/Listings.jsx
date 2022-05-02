@@ -3,9 +3,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import ProductCard from "../../components/Cards/ProductCard";
 import { useEffect, useState } from "react";
+import { Navigate, Link } from 'react-router-dom';
 
-const Listings = () => {
+const Listings = ({ setChatWith, returnChatId }) => {
   const [products, setProducts] = useState([]);
+  const [navigateUser, setNavigateUser] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -22,6 +24,12 @@ const Listings = () => {
     console.log("Here 1");
   }, []);
 
+  let handleClick = (email) => {
+    let id = returnChatId(email);
+    setChatWith(id);
+    setNavigateUser(!navigateUser);
+  }
+
   return (
     <div>
           <Grid
@@ -33,6 +41,7 @@ const Listings = () => {
                 products.map(product =>(
                     <Grid key={product.product_id} style={{paddingLeft:'1%'}}>
                         <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} />
+                        <button onClick={() => handleClick(product.poster_email)}>contact seller</button>
                     </Grid>
                 ))
             }

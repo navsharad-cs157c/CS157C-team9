@@ -2,17 +2,37 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-ro
 import Home from './pages/Home/Home';
 import Error from './pages/Error/Error';
 import Profile from './pages/Profile/Profile';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import Posting from './pages/Posting/Posting';
 import Search from './pages/Search/Search';
 import EditPost from './pages/EditPost/EditPost';
+import Messages from './pages/Messages/Messages';
+import { CometChat } from "@cometchat-pro/chat";
 
 const App = () => {
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('un@gmail.com');
   const [userInfoUpdate, setUserInfoUpdate] = useState(false);
+  const [chatWith, setChatWith] = useState('');
+
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+    CometChat.logout().then(
+      () => {
+        console.log("Logout completed successfully");
+      }, error=>{
+        console.log("Logout failed with exception:",{error});
+      }
+    );
+    }
+  }, [isAuthenticated]);
+
+  const appID = process.env.REACT_APP_COMETCHAT_APPID;
+  const region = process.env.REACT_APP_COMETCHAT_REGION;
+  const auth = process.env.REACT_APP_COMETCHAT_AUTH;
 
   let signIn = async (email, password) => {
     try {
@@ -22,6 +42,16 @@ const App = () => {
         setisAuthenticated(true);
         setUserInfoUpdate(!userInfoUpdate);
         setUserEmail(email);
+        let uid = returnChatId(email);
+        console.log(uid);
+        CometChat.login(uid, auth).then(
+          user => {
+            console.log("Login Successful:", { user });    
+          },
+          error => {
+            console.log("Login failed with exception:", { error });    
+          }
+        );
         return true;
       }
     } catch (err) {
@@ -36,6 +66,17 @@ const App = () => {
       if (response.data.status == 200) {
         console.log('good status');
         setUserEmail(email);
+        let uid = returnChatId(email);
+        console.log(uid);
+        let user = new CometChat.User(uid);
+        user.setName(name);
+        CometChat.createUser(user, auth).then(
+          user => {
+              console.log("user created", user);
+          },error => {
+              console.log("error", error);
+          }
+      )
         return true;
       }
     } catch (err) {
@@ -123,12 +164,27 @@ const App = () => {
       return false;
     }
   }
+
+  // removes special characters from user email to be able to use as UID for chat app
+  let returnChatId = (email) => {
+    let str = email.replace(/\./g,''); // remove periods
+    let uid = str.replace('@', ''); // remove @ sign
+    return uid;
+  }
+
+  function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+      end = new Date().getTime();
+   }
+ }
   
 
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
+      <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId}/>} />
       <Route path="/post" element={<Posting setProduct={setProduct}/>} />
       <Route path="/editpost" element={<EditPost updatePost={updatePost}/>} />
       <Route path="/profile" element={<Profile signIn={signIn} signUp={signUp} 
@@ -136,11 +192,10 @@ const App = () => {
         fetchProducts={fetchProducts} userEmail={userEmail} deletePost={deletePost}/>} />
       <Route path="*" element={<Error />} />
       <Route path="/search" element={<Search signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
+      <Route path="/messages" element={<Messages signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} chatWith={chatWith} />} />
       </Routes>
     </Router>
   )
 }
-
-// save for later - <Route path="/profile" element={isAuthenticated ? <Profile signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo}/> : <Navigate to="/" />} />
 
 export default App;
