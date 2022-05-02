@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import exit from '../../../assets/exit.png';
 import './signupmodal.css';
 import { Navigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 const Signupmodal = ({toggleSignUpModal, signUp, setisAuthenticated}) => {
     const [email, setEmail] = useState("");
@@ -9,13 +13,17 @@ const Signupmodal = ({toggleSignUpModal, signUp, setisAuthenticated}) => {
     const [password, setPassword] = useState("");
     const [isWrongInfo, setIsWrongInfo] = useState(false);
 
+    const notifyUserCreated = () => {
+        toast('You Have Successfully Signed Up!', {position: toast.POSITION.BOTTOM_RIGHT})
+    }
+
     const signUpCheck = async () => {
         let picture = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'; // default user profile picture
         let authentication = await signUp(email, name, password, picture);
             if (authentication) {
                 setIsWrongInfo(false);
                 toggleSignUpModal();
-                setisAuthenticated(true);
+                notifyUserCreated();
             } else {
                 // display that username passowrd combo is wrong
                 setIsWrongInfo(true);
