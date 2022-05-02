@@ -11,8 +11,13 @@ const Listings = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/getProducts");
-        console.log("Response",response.data);
-        setProducts(response.data);
+        // console.log("Response",response.data);
+        let records = response.data;
+        records = records.sort((b, a) => {
+          return new Date(a.time_posted).getTime() - new Date(b.time_posted).getTime(); // descending date order
+        });
+        // console.log("Sorted Response", records);
+        setProducts(records);
       } catch (e) {
         console.log(e);
       }
