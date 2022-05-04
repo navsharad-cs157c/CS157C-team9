@@ -5,7 +5,7 @@ import ProductCard from "../Cards/ProductCard";
 import { useEffect, useState } from "react";
 import "./filteredListings.css";
 
-const FilteredListings = ({filteredProducts}) => {
+const FilteredListings = ({filteredProducts, isAuthenticated, setChatWith, returnChatId, userEmail }) => {
 
   if(!filteredProducts){
     return null;
@@ -14,7 +14,6 @@ const FilteredListings = ({filteredProducts}) => {
     return (
       <div className="filtered-listings" >
         <div className="filtered-listings-header">
-          Filtered Listings
         </div>
             <Grid
               container
@@ -27,7 +26,7 @@ const FilteredListings = ({filteredProducts}) => {
                     return new Date(a.time_posted).getTime() - new Date(b.time_posted).getTime(); // descending date order
                   }).map(product =>(
                       <Grid key={product.product_id} style={{paddingLeft:'1%'}}>
-                          <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} />
+                          <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} poster_email={product.poster_email} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail} />
                       </Grid>
                   )) : null
               }

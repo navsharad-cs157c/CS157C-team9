@@ -125,6 +125,24 @@ app.post('/post/editPost', async function(req, res, next) {
     res.json({"status": "200"});
 });
 
+app.post('/newmessage', async function(req, res, next) {
+    let messageID = await client.get("new_messageID");
+    let key = `message:${messageID}`;
+    client.hSet(key, "message_id", messageID);
+    messageID++;
+    client.set("new_messageID", messageID);
+
+    let userId = req.body.userId;
+    let receiverId = req.body.receiverId;
+    let message = req.body.message;
+
+    client.hSet(key, "sender", userId);
+    client.hSet(key, "receiver", receiverId);
+    client.hSet(key, "message", message);
+    client.hSet(key, "time_sent", (new Date()).toISOString());
+    res.json({"status": "200"});
+});
+
 app.post('/post/deletePost', async function(req, res, next) {
     let key = req.body.key;
     

@@ -44,7 +44,7 @@ export default function PriceFilter(props) {
 
   return (
     <div>
-      <Button className="btn-secondary" variant="outlined" onClick={handleClickOpen} style={{marginTop:'17%', marginLeft:'5%', height:'100%', borderColor:'black', color:'black'}}>
+      <Button className="btn-secondary" variant="outlined" onClick={handleClickOpen}>
         Price Filter
       </Button>
       <Dialog

@@ -8,8 +8,9 @@ import ProductCard from "../../components/Cards/ProductCard";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SearchIcon from '@material-ui/icons/Search';
+import FilteredListings from "../../components/listings/FilteredListings";
 
-const Search = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
+const Search = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith, returnChatId, userEmail }) => {
     const [products, setProducts] = useState([]);
     const [locationState, setLocationState] = useState("");
     const [filteredData, setFilteredData] = useState([]);
@@ -76,7 +77,7 @@ const Search = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
       }, [products]);
 
     return (
-        <div>
+        <div className="search-page">
             <Navbar
             signIn={signIn}
             signUp={signUp}
@@ -84,28 +85,16 @@ const Search = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
             isAuthenticated={isAuthenticated}
             />
             <div className="search-page-container">
-            <div className="searchbar-container">
-            <div className="searchInputs">
-                <input type="text" placeholder="Search..." value={userInput} onChange={handleChange}/>
-                <div className="searchIcon">
-                    <SearchIcon />
+                <div className="searchbar-container">
+                    <div className="searchInputs">
+                        <input type="text" placeholder="Search..." value={userInput} onChange={handleChange}/>
+                        <div className="searchIcon">
+                            <SearchIcon />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
                 <div className="search-page-listings">
-                <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            {
-                filteredData.map(product =>(
-                    <Grid key={product.product_id} style={{paddingLeft:'1%'}}>
-                        <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} />
-                    </Grid>
-                ))
-            }
-          </Grid>
+                <FilteredListings filteredProducts={filteredData} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail}/>
                 </div>
             </div>
         </div>

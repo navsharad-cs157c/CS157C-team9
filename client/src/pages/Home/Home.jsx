@@ -2,7 +2,6 @@ import Navbar from "../../components/navbar/Navbar";
 import video from "../../assets/video.mp4";
 import "./home.css";
 import { useEffect, useState } from "react";
-//import SearchBar from "material-ui-search-bar";
 import SearchBar from "../../components/Search/SearchBar";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
@@ -12,7 +11,7 @@ import Listings from "../../components/listings/Listings";
 import PriceFilter from "../../components/Filters/PriceFilter";
 import FilteredListings from "../../components/listings/FilteredListings";
 
-const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
+const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith, returnChatId, userEmail }) => {
   const [products, setProducts] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [filteredProducts, setFilteredProducts] = useState("");
@@ -66,25 +65,26 @@ const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated }) => {
           <div className="home-text">
             <br />
             <br /> <h1>What Are You Looking For?</h1>
-            <Grid container>
-              <Grid item md={6}>
-                <span className="home-searchbar">
-                  <SearchBar data={products}/>
-                </span>
-              </Grid>
-              <Grid item md={6}>
-                <span className="home-searchbar">
-                  <PriceFilter productFilters={productFilters} />
-                </span>
-              </Grid>
-            </Grid>
+            <div className="home-search-container">
+              <span className="home-searchbar">
+                    <SearchBar data={products}/>
+                  </span>
+                  <span className="home-searchbar">
+                    <PriceFilter productFilters={productFilters} />
+                  </span>
+            </div>
           </div>
         </section>
       </div>
-      {filteredProducts && <FilteredListings filteredProducts={filteredProducts}/>}
+      <div className="home-listings-container">
+      {filteredProducts && <h1 className="home-listings-header">Filtered Listings</h1>}
+      <div style={{overflow: "hidden", overflowY: "scroll"}}>
+      {filteredProducts && <FilteredListings filteredProducts={filteredProducts} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail}/>}
+      </div>
       <div className="home-listings">
         <h1 className="home-listings-header">Recent Listings</h1>
-        <Listings />
+        <Listings isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail}/>
+      </div>
       </div>
     </div>
   );
