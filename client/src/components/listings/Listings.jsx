@@ -5,7 +5,7 @@ import ProductCard from "../../components/Cards/ProductCard";
 import { useEffect, useState } from "react";
 import { Navigate, Link } from 'react-router-dom';
 
-const Listings = ({ isAuthenticated, setChatWith, returnChatId }) => {
+const Listings = ({ isAuthenticated, setChatWith, returnChatId, userEmail }) => {
   const [products, setProducts] = useState([]);
   const [navigateUser, setNavigateUser] = useState(false);
 
@@ -45,7 +45,7 @@ const Listings = ({ isAuthenticated, setChatWith, returnChatId }) => {
             {
                 products.map(product =>(
                     <Grid key={product.product_id} style={{paddingLeft:'1%'}}>
-                        <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} poster_email={product.poster_email} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} />
+                        <ProductCard image={product.image} title={product.title} price={product.price} description={product.description} time_posted={product.time_posted} asking_price={product.asking_price} poster_email={product.poster_email} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail} />
                     </Grid>
                 ))
             }

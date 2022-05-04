@@ -11,7 +11,7 @@ import Listings from "../../components/listings/Listings";
 import PriceFilter from "../../components/Filters/PriceFilter";
 import FilteredListings from "../../components/listings/FilteredListings";
 
-const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith, returnChatId }) => {
+const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith, returnChatId, userEmail }) => {
   const [products, setProducts] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [filteredProducts, setFilteredProducts] = useState("");
@@ -78,10 +78,12 @@ const Home = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith
       </div>
       <div className="home-listings-container">
       {filteredProducts && <h1 className="home-listings-header">Filtered Listings</h1>}
-      {filteredProducts && <FilteredListings filteredProducts={filteredProducts} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId}/>}
+      <div style={{overflow: "hidden", overflowY: "scroll"}}>
+      {filteredProducts && <FilteredListings filteredProducts={filteredProducts} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail}/>}
+      </div>
       <div className="home-listings">
         <h1 className="home-listings-header">Recent Listings</h1>
-        <Listings isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId}/>
+        <Listings isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail}/>
       </div>
       </div>
     </div>

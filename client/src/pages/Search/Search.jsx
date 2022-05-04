@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 import SearchIcon from '@material-ui/icons/Search';
 import FilteredListings from "../../components/listings/FilteredListings";
 
-const Search = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith, returnChatId }) => {
+const Search = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWith, returnChatId, userEmail }) => {
     const [products, setProducts] = useState([]);
     const [locationState, setLocationState] = useState("");
     const [filteredData, setFilteredData] = useState([]);
@@ -94,7 +94,7 @@ const Search = ({ signIn, signUp, setisAuthenticated, isAuthenticated, setChatWi
                     </div>
                 </div>
                 <div className="search-page-listings">
-                <FilteredListings filteredProducts={filteredData} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId}/>
+                <FilteredListings filteredProducts={filteredData} isAuthenticated={isAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail}/>
                 </div>
             </div>
         </div>

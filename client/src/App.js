@@ -30,6 +30,7 @@ const App = () => {
     }
   }, [isAuthenticated]);
 
+
   const appID = process.env.REACT_APP_COMETCHAT_APPID;
   const region = process.env.REACT_APP_COMETCHAT_REGION;
   const auth = process.env.REACT_APP_COMETCHAT_AUTH;
@@ -184,14 +185,14 @@ const App = () => {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId}/>} />
+      <Route path="/" element={<Home signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} setChatWith={setChatWith} returnChatId={returnChatId} userEmail={userEmail}/>} />
       <Route path="/post" element={<Posting setProduct={setProduct}/>} />
       <Route path="/editpost" element={<EditPost updatePost={updatePost}/>} />
       <Route path="/profile" element={<Profile signIn={signIn} signUp={signUp} 
         isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} fetchUserInfo={fetchUserInfo} updateUserInfo={updateUserInfo} userInfoUpdate={userInfoUpdate} 
         fetchProducts={fetchProducts} userEmail={userEmail} deletePost={deletePost}/>} />
       <Route path="*" element={<Error />} />
-      <Route path="/search" element={<Search signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated}/>} />
+      <Route path="/search" element={<Search signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} userEmail={userEmail}/>} />
       <Route path="/messages" element={<Messages signIn={signIn} signUp={signUp} isAuthenticated={isAuthenticated} setisAuthenticated={setisAuthenticated} chatWith={chatWith} />} />
       </Routes>
     </Router>

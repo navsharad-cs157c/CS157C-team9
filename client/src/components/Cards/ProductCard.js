@@ -7,14 +7,11 @@ export default class ProductCard extends Component {
 
     constructor(props){
         super(props);
-        this.state = {navigateUser: false}
+        this.state = {
+            navigateUser: false,
+            userProduct: false
+        }
     }
-
-    // componentDidMount() {
-    //     this.setState({
-    //         navigateUser: false
-    //     })
-    // }
 
     contactSeller(email) {
         let uid = this.props.returnChatId(email);
@@ -43,7 +40,7 @@ export default class ProductCard extends Component {
                 </div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">Asking Price : <span className='text-primary card-title'>${this.props.price}</span> </li>
-                    { this.props.isAuthenticated && <Button className="btn-secondary" onClick={() => this.contactSeller(this.props.poster_email)}>Contact Seller</Button>}
+                    { this.props.isAuthenticated && (this.props.userEmail != this.props.poster_email) && <Button className="btn-secondary" onClick={() => this.contactSeller(this.props.poster_email)}>Contact Seller</Button>}
                 </ul>
                 <div class="card-footer"><small class="text-muted">Posted on {new Date(this.props.time_posted).toLocaleDateString()}</small></div>
             </div>
